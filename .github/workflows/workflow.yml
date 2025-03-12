@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ toJSON(github.event.pull_request.labels) }}"
-          echo "==========================="
-          echo "${{ github.event.pull_request.labels }}"
+          cat << EOF
+          ${{ toJSON(github.event.pull_request.labels) }}
+          "======="
+          ${{ github.event.pull_request.labels }}
+          EOF
