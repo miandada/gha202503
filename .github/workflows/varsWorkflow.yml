@@ -32,7 +32,7 @@ jobs:
            echo "Hola mundo"
 
       - name: Print  GoodBye
-        if: !cancelled()
+        if: ${{!cancelled()}}
         run: | 
            echo "Siempre me despido Bye World"
       
