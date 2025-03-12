@@ -1,0 +1,11 @@
+name: adasd
+on: pull_request
+
+jobs:
+  job1: 
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ toJSON(github.event.pull_request.labels) }}"
+          echo "==========================="
+          echo "${{ github.event.pull_request.labels }}"
