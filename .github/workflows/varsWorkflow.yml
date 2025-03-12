@@ -1,0 +1,49 @@
+name: Eventos
+run-name: Ejecucion con valores debug-${{inputs.debug}} y tag ${{inputs.tag}}
+on:    
+   push: 
+   workflow_dispatch: 
+    inputs:
+      debug: 
+        description: ¿Quieres depurar?
+        type: boolean
+        default: false
+      tag:
+        description: ¿Tag?
+        type: string
+        required: true
+
+env:
+  VARIABLE_TEST: "Hola"
+  VARIABLE_TEST2: ${{12.2}}
+
+
+jobs:
+  job1: 
+    env:
+      VARIABLE_TEST: "hola job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step1
+        run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  "
+      - name: Print var
+        env:
+          VARIABLE_TEST: "hola Step"
+        run: | 
+          echo "Variable VARIABLE_TEST - $VARIABLE_TEST"  
+      - name: Print inputs        
+        run: | 
+          echo "Parametros de entrada debug: ${{inputs.debug}} -  tag: ${{inputs.tag}}"  
+
+      - name: Print debug info  
+        if: ${{inputs.debug}}
+        run: | 
+           echo "DEPURACION"  
+
+      - name: Print Secrets        
+        run: | 
+           echo "TOKEN - ${{secrets.TOKEN}}"
+
+      - name: Print VARS        
+        run: | 
+           echo "HOST_DEF - ${{vars.HOST_DEF}}"
