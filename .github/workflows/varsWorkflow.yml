@@ -1,7 +1,6 @@
 name: Eventos
 run-name: Ejecucion con valores debug-${{inputs.debug}} y tag ${{inputs.tag}}
-on:    
-   push: 
+on:       
    workflow_dispatch: 
     inputs:
       debug: 
@@ -12,6 +11,10 @@ on:
         description: ¿Tag?
         type: string
         required: true
+      fail:
+        description: ¿Quieres que falle?
+        type: boolean
+        default: false
 
 env:
   VARIABLE_TEST: "Hola"
@@ -40,10 +43,12 @@ jobs:
         run: | 
            echo "DEPURACION"  
 
-      - name: Print Secrets        
+      - name: Execute process fail
+        if: ${{inputs.fail}}
         run: | 
-           echo "TOKEN - ${{secrets.TOKEN}}"
+           exit 1
 
-      - name: Print VARS        
+      - name: Print  info       
         run: | 
-           echo "HOST_DEF - ${{vars.HOST_DEF}}"
+           echo "Hola mundo"
+      
