@@ -33,10 +33,7 @@ jobs:
     steps:
       - name: Step1
         run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  " 
-    
-      - name: Execute process fail  
-        run: | 
-           exit 1
+       
 
       - name: Print 2 GoodBye
         if: ${{always()}}
