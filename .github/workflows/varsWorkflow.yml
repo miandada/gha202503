@@ -3,11 +3,21 @@ run-name: Ejecucion con valores fail ${{inputs.fail}}
 on:       
    workflow_dispatch: 
     inputs:  
-      fail:
-        description: ¿Quieres que falle?
-        type: boolean
-        default: false
+      Tag:
+        description: Tag to Deploy
+        type: choice
+        options:
+          - v1
+          - v2
+          - v3
+        default: v1
+        
+      entorno:
+        type: environment
+        description: Entorno de despliegue
 
+          
+  
 env:
   VARIABLE_TEST: "Hola"
   VARIABLE_TEST2: ${{12.2}}
@@ -20,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step1
-        run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  "
+        run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  " 
     
       - name: Execute process fail  
         run: | 
