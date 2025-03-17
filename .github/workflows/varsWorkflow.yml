@@ -26,13 +26,13 @@ env:
 jobs:
   job1:
     outputs:
-      TAG: ${{ toJson(steps.tagCalculation.outputs)}}
+      TAG: ${{ steps.tagCalculation.outputs.ETIQUETA}}
     env:
       VARIABLE_TEST: "hola job1"
     runs-on: ubuntu-latest
     steps:
       - name: Step1
-        run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  " 
+        run: echo "Configurando para user ${{vars.USERNAME}} " 
 
       - name: Calculate tag
         id: tagCalculation
@@ -42,8 +42,8 @@ jobs:
         if: ${{always()}}
         run: | 
             echo "Siempre me despido Bye World"   
+            echo "ETIQUETA=null " >> "$GITHUB_OUTPUT" 
    
-
 
   job2: 
     needs: job1
