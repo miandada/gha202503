@@ -22,7 +22,8 @@ jobs:
       - name: Step1
         run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  "
     
-      - name: Execute process fail       
+      - name: Execute process fail  
+        continue-on-error: true     
         run: | 
            exit ${{inputs.fail && '1' || '0'}}
    
