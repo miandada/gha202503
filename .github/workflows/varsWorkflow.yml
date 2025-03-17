@@ -28,6 +28,7 @@ jobs:
            exit 1
    
   job2: 
+    needs: job1
     env:
       VARIABLE_TEST: "hola job2"
     runs-on: ubuntu-latest
