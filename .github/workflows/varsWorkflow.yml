@@ -14,9 +14,9 @@ env:
 
 
 jobs:
-  job: 
+  job1: 
     env:
-      VARIABLE_TEST: "hola job"
+      VARIABLE_TEST: "hola job1"
     runs-on: ubuntu-latest
     steps:
       - name: Step1
@@ -26,13 +26,18 @@ jobs:
         if: inputs.fail
         run: | 
            exit 1
+   
+  job2: 
+    env:
+      VARIABLE_TEST: "hola job2"
+    runs-on: ubuntu-latest
+    steps: 
 
       - name: Print  info job1
         run: | 
-           echo "Hola mundo"
+            echo "Hola mundo"
 
       - name: Print  GoodBye
         if: ${{always()}}
         run: | 
-           echo "Siempre me despido Bye World"
-      
+            echo "Siempre me despido Bye World"   
