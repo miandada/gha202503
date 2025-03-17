@@ -26,21 +26,23 @@ env:
 jobs:
   job1:
     outputs:
-      TAG: ${{inputs.tag}} 
+      TAG: ${{steps.tagCalculation.outputs.ETIQUETA}}
     env:
       VARIABLE_TEST: "hola job1"
     runs-on: ubuntu-latest
     steps:
       - name: Step1
         run: echo "hola mundo, fui lanzado por el evento ${{github.event_name}}  " 
-       
+
+      - name: Calculate tag
+        id: tagCalculation
+        run: echo "ETIQUETA=Etiqueta${{inputs.tag}} " >> "$GITHUB_OUTPUT"       
 
       - name: Print 2 GoodBye
         if: ${{always()}}
         run: | 
             echo "Siempre me despido Bye World"   
    
-
 
 
   job2: 
