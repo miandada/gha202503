@@ -3,7 +3,7 @@ run-name: Ejecucion con valores fail ${{inputs.fail}}
 on:       
    workflow_dispatch: 
     inputs:  
-      Tag:
+      tag:
         description: Tag to Deploy
         type: choice
         options:
@@ -11,7 +11,7 @@ on:
           - v2
           - v3
         default: v1
-        
+
       entorno:
         type: environment
         description: Entorno de despliegue
@@ -24,7 +24,9 @@ env:
 
 
 jobs:
-  job1: 
+  job1:
+    outputs:
+      TAG: ${{inputs.tag}} 
     env:
       VARIABLE_TEST: "hola job1"
     runs-on: ubuntu-latest
@@ -41,18 +43,19 @@ jobs:
         run: | 
             echo "Siempre me despido Bye World"   
    
+
+
+
   job2: 
     needs: job1
     env:
       VARIABLE_TEST: "hola job2"
     runs-on: ubuntu-latest
-    steps: 
+    steps:       
+      - name: Deploy tag
+        run: |
+            echo "Deploying tag ${{needs.job1.outputs.TAG}}"
 
-      - name: Print  info job1
-        run: | 
-            echo "Hola mundo"
 
-      - name: Print  GoodBye
-        if: ${{always()}}
-        run: | 
-            echo "Siempre me despido Bye World"   
+
+     
